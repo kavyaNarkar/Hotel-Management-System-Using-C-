@@ -1,0 +1,14 @@
+==================== Room Status ====================
+Room No.   Guest Name          Status
+====================================================
+1		N/A		Available
+2		N/A		Available
+3		N/A		Available
+4		N/A		Available
+5		N/A		Available
+6		N/A		Available
+7		N/A		Available
+8		N/A		Available
+9		N/A		Available
+10		N/A		Available
+====================================================
