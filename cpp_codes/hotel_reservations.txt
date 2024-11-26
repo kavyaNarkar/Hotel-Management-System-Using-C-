@@ -1,0 +1,98 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+
+class account {
+    private:
+        string name;
+        long int bal;
+        long int acc_no;
+
+    public:
+        void getdata() {
+            cout << "Enter your name: " << endl;
+            cin >> name;
+            cout << "Enter your bank balance: " << endl;
+            cin >> bal;
+            cout << "Enter your account number: " << endl;
+            cin >> acc_no;
+        }
+
+        void show() {
+            cout << "Name: " << name << "\t" << "Balance: " << bal << "\t" << "Account Number: " << acc_no << endl;
+        }
+
+        void lowBalance() {
+            if (bal < 3000) {
+                cout << "Name: " << name << "\t" << "Balance: " << bal << "\t" << "Account Number: " << acc_no << endl;
+            }
+        }
+
+        // Function to return low balance accounts as a string (for file saving)
+        string getLowBalanceData() {
+            if (bal < 3000) {
+                return + "Name: " + name + "\tBalance: " + to_string(bal) + "\tAccount Number: " + to_string(acc_no) +"\n";
+            }
+            return "";
+        }
+};
+
+int main() {
+    account a[5];
+    int choice, i;
+    while (true) {//while is for infinit looping
+        cout << "Enter your choice :\n 1. Add Details\n 2. Show Details\n 3. Check for balance\n 4. Exit\n";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                for (i = 0; i < 5; i++) {
+                    a[i].getdata();
+                }
+                break;
+
+            case 2:
+                cout << "===============Account Details===============\n";
+                for (i = 0; i < 5; i++) {
+                    a[i].show();
+                }
+                cout << "==============================================\n";
+                break;
+
+            case 3:
+                cout << "===============Account Details===============\n";
+                cout << "Balance less than ₹3000:\n";
+                for (i = 0; i < 5; i++) {
+                    a[i].lowBalance();
+                }
+                cout << "=============================================\n";
+                break;
+
+            case 4:
+                // Save low balance accounts to a file
+                {
+                    ofstream file("low_balance_accounts.txt");  // Open a file to write
+                    if (file) {
+                        file << "Low Balance Accounts (less than ₹3000):\n";
+                        for (i = 0; i < 5; i++) {
+                            string lowBalanceData = a[i].getLowBalanceData();
+                            if (!lowBalanceData.empty()) {
+                                file << lowBalanceData;  // Write to file
+                            }
+                        }
+                        file.close();  // Close the file after writing
+                        cout << "Low balance accounts saved to 'low_balance_accounts.txt'.\n";
+                    } else {
+                        cout << "Error opening file for writing.\n";
+                    }
+                }
+                exit(0);
+
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+    }
+
+    return 0;
+}
